@@ -44,6 +44,8 @@
 #include "mincrypt/sha.h"
 #include "mincrypt/sha256.h"
 
+//#include "util.h"
+
 #include "fs_mgr_priv.h"
 #include "fs_mgr_priv_verity.h"
 
@@ -378,6 +380,15 @@ struct fstab *fs_mgr_read_fstab(const char *fstab_path)
             ERROR("Error parsing mount source\n");
             return 0;
         }
+
+//        if (!strncmp(line, "emmc@", 5)) {
+//            int n = emmc_name_to_number(line + 5);
+//            if (n < 0) {
+//                ERROR("Error resolving partition number from label %s\n", line + 5);
+//                return 0;
+//            }
+//            sprintf(p, "/dev/block/mmcblk0p%d", n);
+//        }
         fstab->recs[cnt].blk_device = strdup(p);
 
         if (!(p = strtok_r(NULL, delim, &save_ptr))) {
